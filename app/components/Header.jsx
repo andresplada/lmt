@@ -218,8 +218,9 @@ const FALLBACK_HEADER_MENU = {
  */
 function activeLinkStyle({isActive, isPending}) {
   return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
+    fontWeight: '500',
+    color: 'white',
+    zIndex: 100,
   };
 }
 

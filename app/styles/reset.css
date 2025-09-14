@@ -82,6 +82,11 @@ body > main {
   margin: 0 1rem 1rem 1rem;
 }
 
+/* Remove margins for home page to eliminate white space */
+body:has(.home) > main {
+  margin: 0;
+}
+
 section {
   padding: 1rem 0;
   @media (min-width: 768px) {
