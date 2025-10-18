@@ -254,7 +254,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .contact-button {
-  padding: 0.5rem 1.2rem;
+  padding: 0.2rem 1.2rem;
   border-radius: 50px;
   font-weight: 500;
   transition: all 200ms ease;
@@ -279,8 +279,8 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .whatsapp-icon {
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
@@ -288,12 +288,12 @@ button.reset:hover:not(:has(> *)) {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1;
-  color: #006500;
+  color: #ffffff;
 }
 
 /* Contact button on home page */
 .contact-button-home {
-  background: white;
+  background: #2bb742;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
