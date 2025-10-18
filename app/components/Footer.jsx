@@ -10,13 +10,97 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
       <Await resolve={footerPromise}>
         {(footer) => (
           <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
+            <div className="footer-content">
+              {/* Main Content */}
+              <div className="footer-main">
+                <div className="footer-brand">
+                  <div className="footer-logos-row">
+                    <NavLink prefetch="intent" to="/" end className="footer-logo-link">
+                      <img 
+                        src="/logo-cdp.png" 
+                        alt="Centro Deportivo Luz Mery Tristan"
+                        className="footer-logo"
+                        style={{
+                          height: '3rem',
+                          width: 'auto',
+                        }}
+                      />
+                    </NavLink>
+                    
+                    {/* Activity Logos in same row */}
+                    <img 
+                      src="/logo-gym.png" 
+                      alt="Gimnasio"
+                      className="footer-logo"
+                    />
+                    <img 
+                      src="/logo-patinaje.png" 
+                      alt="Patinaje"
+                      className="footer-logo"
+                    />
+                    <img 
+                      src="/logo-natacion.png" 
+                      alt="Natación"
+                      className="footer-logo"
+                    />
+                    <img 
+                      src="/logo-summer.png" 
+                      alt="Summer"
+                      className="footer-logo"
+                    />
+                    <img 
+                      src="/logo-tienda.png" 
+                      alt="Tienda"
+                      className="footer-logo"
+                    />
+                  </div>
+                  
+                  <div className="footer-brand-text">
+                    <h3 className="footer-brand-name">Centro Deportivo Luz Mery Tristan</h3>
+                    <p className="footer-description">
+                      Formando campeones y promoviendo los valores del deporte en nuestra comunidad.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="footer-links-grid">
+
+                  {/* Contact Info */}
+                  <div className="footer-links-column">
+                    <div className="footer-contact">
+                      <div className="contact-info">
+                        <span className="contact-label">Horarios</span>
+                        <span className="contact-value">5am - 8pm</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Social */}
+                  <div className="footer-links-column">
+                    <a 
+                      href="https://www.instagram.com/lmt_centrodeportivo/" 
+                      aria-label="Instagram" 
+                      className="social-link" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <img 
+                        src="/insta.png" 
+                        alt="Instagram" 
+                        className="social-icon"
+                        style={{
+                          height: '1.5rem',
+                          width: 'auto',
+                        }}
+                      />
+                    </a>
+                  </div>
+                  <p className="footer-copyright">
+                  © 2024 Centro Deportivo Luz Mery Tristan
+                </p>
+                </div>
+              </div>
+            </div>
           </footer>
         )}
       </Await>
@@ -32,11 +116,11 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
  * }}
  */
 function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
+  const items = (menu || FALLBACK_FOOTER_MENU).items.filter(item => item.url);
+  
   return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
+    <nav className="footer-legal" role="navigation">
+      {items.map((item, index) => {
         const url =
           item.url.includes('myshopify.com') ||
           item.url.includes(publicStoreDomain) ||
@@ -44,20 +128,25 @@ function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
             ? new URL(item.url).pathname
             : item.url;
         const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-            {item.title}
-          </a>
-        ) : (
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
+        
+        return (
+          <span key={item.id} style={{ display: 'contents' }}>
+            {index > 0 && <span className="footer-divider">·</span>}
+            {isExternal ? (
+              <a href={url} rel="noopener noreferrer" target="_blank" className="footer-legal-link">
+                {item.title}
+              </a>
+            ) : (
+              <NavLink
+                end
+                prefetch="intent"
+                className="footer-legal-link"
+                to={url}
+              >
+                {item.title}
+              </NavLink>
+            )}
+          </span>
         );
       })}
     </nav>
@@ -71,7 +160,7 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633060920',
       resourceId: 'gid://shopify/ShopPolicy/23358046264',
       tags: [],
-      title: 'Privacy Policy',
+      title: 'Política de Privacidad',
       type: 'SHOP_POLICY',
       url: '/policies/privacy-policy',
       items: [],
@@ -80,7 +169,7 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633093688',
       resourceId: 'gid://shopify/ShopPolicy/23358013496',
       tags: [],
-      title: 'Refund Policy',
+      title: 'Política de Reembolso',
       type: 'SHOP_POLICY',
       url: '/policies/refund-policy',
       items: [],
@@ -89,7 +178,7 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633126456',
       resourceId: 'gid://shopify/ShopPolicy/23358111800',
       tags: [],
-      title: 'Shipping Policy',
+      title: 'Política de Envío',
       type: 'SHOP_POLICY',
       url: '/policies/shipping-policy',
       items: [],
@@ -98,26 +187,13 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633159224',
       resourceId: 'gid://shopify/ShopPolicy/23358079032',
       tags: [],
-      title: 'Terms of Service',
+      title: 'Términos de Servicio',
       type: 'SHOP_POLICY',
       url: '/policies/terms-of-service',
       items: [],
     },
   ],
 };
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({isActive, isPending}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
-}
 
 /**
  * @typedef {Object} FooterProps

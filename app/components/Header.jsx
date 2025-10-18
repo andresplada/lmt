@@ -1,25 +1,38 @@
-import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
-import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
-import {useAside} from '~/components/Aside';
+import { Suspense } from 'react';
+import { Await, NavLink, useAsyncValue, useLocation } from 'react-router';
+import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
+import { useAside } from '~/components/Aside';
 
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
-  const {shop, menu} = header;
+export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const { shop, menu } = header;
+  
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+    <header className={`header ${isHomePage ? 'header-home' : 'header-other'}`}>
+      <NavLink prefetch="intent" to="/" style={(props) => activeLinkStyle(props, isHomePage)} end>
+        <img 
+          src="/logo-cropped.png" 
+          alt="Luz Mery Tristan Fitness Center"
+          style={{
+            position: 'relative',
+            height: '3rem',
+            width: 'auto',
+            top: '0.5rem',
+          }}
+        />
       </NavLink>
       <HeaderMenu
         menu={menu}
         viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
+        isHomePage={isHomePage}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} isHomePage={isHomePage} />
     </header>
   );
 }
@@ -30,6 +43,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
  *   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
  *   viewport: Viewport;
  *   publicStoreDomain: HeaderProps['publicStoreDomain'];
+ *   isHomePage?: boolean;
  * }}
  */
 export function HeaderMenu({
@@ -37,9 +51,42 @@ export function HeaderMenu({
   primaryDomainUrl,
   viewport,
   publicStoreDomain,
+  isHomePage = false,
 }) {
   const className = `header-menu-${viewport}`;
-  const {close} = useAside();
+  const { close } = useAside();
+
+  const overrideMenu = {
+    items: [
+      {
+        "id": "1",
+        "resourceId": null,
+        "tags": [],
+        "title": "Nosotros",
+        "type": "NOSOTROS",
+        "url": isHomePage ? "#features-section" : "https://luzmerytristan.com/nosotros",
+        "items": []
+      },
+      {
+        "id": "2",
+        "resourceId": null,
+        "tags": [],
+        "title": "Servicios",
+        "type": "SERVICIOS",
+        "url": isHomePage ? "#nuestras-actividades" : "https://luzmerytristan.com/servicios",
+        "items": []
+      },
+      {
+        "id": "3",
+        "resourceId": null,
+        "tags": [],
+        "title": "Contacto",
+        "type": "EVENTOS",
+        "url": "https://api.whatsapp.com/send?phone=573155502034&text=%F0%9F%91%8B%20Hola%20quisiera%20mas%20información%20",
+        "items": []
+      },
+    ]
+  }
 
   return (
     <nav className={className} role="navigation">
@@ -48,20 +95,60 @@ export function HeaderMenu({
           end
           onClick={close}
           prefetch="intent"
-          style={activeLinkStyle}
+          style={(props) => activeLinkStyle(props, isHomePage)}
           to="/"
         >
           Home
         </NavLink>
       )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+      {(overrideMenu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
+
+        // Handle anchor links for scroll navigation and external links
+        if (item.url.startsWith('#') && isHomePage) {
+          // For anchor links on home page, handle scroll
+          return (
+            <a
+              key={item.id}
+              className="header-menu-item"
+              href={item.url}
+              onClick={(e) => {
+                e.preventDefault();
+                close();
+                const element = document.querySelector(item.url);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              style={activeLinkStyle({ isActive: false, isPending: false }, isHomePage)}
+            >
+              {item.title}
+            </a>
+          );
+        }
+
+        // Handle external links (like WhatsApp)
+        if (item.url.startsWith('http')) {
+          return (
+            <a
+              key={item.id}
+              className="header-menu-item"
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={close}
+              style={activeLinkStyle({ isActive: false, isPending: false }, isHomePage)}
+            >
+              {item.title}
+            </a>
+          );
+        }
 
         // if the url is internal, we strip the domain
         const url =
           item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
+            item.url.includes(publicStoreDomain) ||
+            item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
             : item.url;
         return (
@@ -71,7 +158,7 @@ export function HeaderMenu({
             key={item.id}
             onClick={close}
             prefetch="intent"
-            style={activeLinkStyle}
+            style={(props) => activeLinkStyle(props, isHomePage)}
             to={url}
           >
             {item.title}
@@ -83,39 +170,63 @@ export function HeaderMenu({
 }
 
 /**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
+ * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'> & {isHomePage?: boolean}}
  */
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas({ isLoggedIn, cart, isHomePage = false }) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      <HeaderMenuMobileToggle isHomePage={isHomePage} />
+      {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
         </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
+      </NavLink> */}
+      {/* <SearchToggle /> */}
+      {/* <CartToggle cart={cart} /> */}
+      <ContactButton isHomePage={isHomePage} />
     </nav>
   );
 }
 
-function HeaderMenuMobileToggle() {
-  const {open} = useAside();
+function HeaderMenuMobileToggle({ isHomePage = false }) {
+  const { open } = useAside();
   return (
     <button
       className="header-menu-mobile-toggle reset"
       onClick={() => open('mobile')}
+      style={{ color: isHomePage ? 'white' : '#000' }}
     >
       <h3>☰</h3>
     </button>
   );
 }
 
+function ContactButton({ isHomePage = false }) {
+  return (
+    <a
+      href="https://api.whatsapp.com/send?phone=573155502034&text=%F0%9F%91%8B%20Hola%20quisiera%20mas%20información%20"
+      className={`contact-button ${isHomePage ? 'contact-button-home' : 'contact-button-other'}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div className="contact-button-content">
+        <div className="contact-button-icon">
+          <img 
+            src="/whatsapp.png" 
+            alt="WhatsApp" 
+            className="whatsapp-icon"
+          />
+        </div>
+        <span className="contact-button-text">Comienza ahora</span>
+      </div>
+    </a>
+  );
+}
+
 function SearchToggle() {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
       Search
@@ -126,9 +237,9 @@ function SearchToggle() {
 /**
  * @param {{count: number | null}}
  */
-function CartBadge({count}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
+function CartBadge({ count }) {
+  const { open } = useAside();
+  const { publish, shop, cart, prevCart } = useAnalytics();
 
   return (
     <a
@@ -152,7 +263,7 @@ function CartBadge({count}) {
 /**
  * @param {Pick<HeaderProps, 'cart'>}
  */
-function CartToggle({cart}) {
+function CartToggle({ cart }) {
   return (
     <Suspense fallback={<CartBadge count={null} />}>
       <Await resolve={cart}>
@@ -172,10 +283,19 @@ const FALLBACK_HEADER_MENU = {
   id: 'gid://shopify/Menu/199655587896',
   items: [
     {
+      id: 'gid://shopify/MenuItem/461609599032',
+      resourceId: 'gid://shopify/Page/92591030328',
+      tags: [],
+      title: 'Nosotros',
+      type: 'PAGE',
+      url: '/about',
+      items: [],
+    },
+    {
       id: 'gid://shopify/MenuItem/461609500728',
       resourceId: null,
       tags: [],
-      title: 'Collections',
+      title: 'Programas',
       type: 'HTTP',
       url: '/collections',
       items: [],
@@ -184,7 +304,7 @@ const FALLBACK_HEADER_MENU = {
       id: 'gid://shopify/MenuItem/461609533496',
       resourceId: null,
       tags: [],
-      title: 'Blog',
+      title: 'Eventos',
       type: 'HTTP',
       url: '/blogs/journal',
       items: [],
@@ -193,18 +313,9 @@ const FALLBACK_HEADER_MENU = {
       id: 'gid://shopify/MenuItem/461609566264',
       resourceId: null,
       tags: [],
-      title: 'Policies',
+      title: 'Contacto',
       type: 'HTTP',
       url: '/policies',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
       items: [],
     },
   ],
@@ -215,12 +326,16 @@ const FALLBACK_HEADER_MENU = {
  *   isActive: boolean;
  *   isPending: boolean;
  * }}
+ * @param {boolean} isHomePage
  */
-function activeLinkStyle({isActive, isPending}) {
+function activeLinkStyle({ isActive, isPending }, isHomePage = false) {
   return {
-    fontWeight: '500',
-    color: 'white',
+    fontWeight: '400',
+    color: isHomePage ? 'white' : '#000',
     zIndex: 100,
+    marginRight: '0.5rem',
+    fontSize: '0.92rem',
+    letterSpacing: '0.02rem',
   };
 }
 
