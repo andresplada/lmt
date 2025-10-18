@@ -15,7 +15,7 @@ export default function Eventos() {
       location: 'Centro Deportivo Principal',
       category: 'Competencia',
       description: 'Competencia regional abierta para todas las categorías y edades. Inscripciones abiertas hasta el 10 de marzo.',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       status: 'upcoming'
     },
     {
@@ -37,7 +37,7 @@ export default function Eventos() {
       location: 'Dojo Principal',
       category: 'Examen',
       description: 'Evaluación trimestral para ascenso de grado. Requisitos y preparación disponibles en recepción.',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       status: 'upcoming'
     },
     {
@@ -59,7 +59,7 @@ export default function Eventos() {
       location: 'Centro Deportivo Principal',
       category: 'Torneo',
       description: 'Competencia interna entre estudiantes de la escuela. Categorías por edad y nivel de experiencia.',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       status: 'upcoming'
     },
     {
@@ -84,7 +84,7 @@ export default function Eventos() {
       location: 'Coliseo Nacional',
       category: 'Competencia',
       description: 'Participación exitosa en el campeonato nacional con 8 medallas obtenidas por nuestros atletas.',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       status: 'past',
       results: '8 medallas obtenidas'
     },

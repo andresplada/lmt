@@ -69,7 +69,7 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
-      <Hero backgroundImage="/hero-bg.png" />
+      <Hero backgroundImage="/hero-bg-small.png" />
       <Features />
       <CirclesSection />
       <ValuesSection />

@@ -10,7 +10,7 @@ export default function Servicios() {
     {
       id: 1,
       title: 'Patinaje',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       category: 'deportes'
     },
     {
@@ -22,7 +22,7 @@ export default function Servicios() {
     {
       id: 3,
       title: 'Gimnasio',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       category: 'fitness'
     },
     {
@@ -34,7 +34,7 @@ export default function Servicios() {
     {
       id: 5,
       title: 'Danza',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       category: 'arte'
     },
     {
@@ -46,7 +46,7 @@ export default function Servicios() {
     {
       id: 7,
       title: 'Muai Tai',
-      image: '/hero-bg.png',
+      image: '/hero-bg-small.png',
       category: 'artes-marciales'
     },
     {
