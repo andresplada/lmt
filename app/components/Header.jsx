@@ -10,18 +10,18 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const { shop, menu } = header;
-  
+
   return (
     <header className={`header ${isHomePage ? 'header-home' : 'header-other'}`}>
       <NavLink prefetch="intent" to="/" style={(props) => activeLinkStyle(props, isHomePage)} end>
-        <img 
-          src="/logo-cropped.png" 
+        <img
+          src="/logo-top.png"
           alt="Luz Mery Tristan Fitness Center"
           style={{
             position: 'relative',
-            height: '3rem',
+            height: '2.4rem',
             width: 'auto',
-            top: '0.5rem',
+            // top: '0.5rem',
           }}
         />
       </NavLink>
@@ -213,13 +213,13 @@ function ContactButton({ isHomePage = false }) {
     >
       <div className="contact-button-content">
         <div className="contact-button-icon">
-          <img 
-            src="/whatsapp.png" 
-            alt="WhatsApp" 
+          <img
+            src="/whatsapp.png"
+            alt="WhatsApp"
             className="whatsapp-icon"
           />
         </div>
-        <span className="contact-button-text">Comienza ahora</span>
+        <span className="contact-button-text">Contáctanos</span>
       </div>
     </a>
   );
