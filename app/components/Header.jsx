@@ -24,7 +24,9 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
             // top: '0.5rem',
           }}
         /> */}
-        <div className="header-logo-text">LUZ MERY TRISTÁN</div>
+        <div className="header-logo-text-container">
+          <div className="header-logo-text">LUZ MERY TRISTÁN</div>
+        </div>
       </NavLink>
       <HeaderMenu
         menu={menu}
