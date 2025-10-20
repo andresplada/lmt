@@ -17,6 +17,15 @@ export function Hero({
   ctaLink = "/collections/all",
   backgroundImage = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
 }) {
+  const scrollToActivities = () => {
+    const element = document.getElementById('nuestras-actividades');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
   return (
     <section className="hero">
       <div
@@ -34,9 +43,9 @@ export function Hero({
         <span className="hero-title"
         >a través del deporte</span>
         <p className="hero-subtitle">{subtitle}</p>
-        <a href="https://api.whatsapp.com/send?phone=573155502034&text=%F0%9F%91%8B%20Hola%20quisiera%20mas%20información%20" className="hero-cta">
+        <button onClick={scrollToActivities} className="hero-cta" style={{ border: 'none', cursor: 'pointer' }}>
           {ctaText}
-        </a>
+        </button>
       </div>
 
       {/* Hero Cards at bottom center */}
