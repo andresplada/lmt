@@ -1,6 +1,6 @@
 export const meta = () => {
   return [
-    { title: 'Servicios - Liga Metropolitana de Taekwondo' },
+    { title: 'Servicios - Centro Deportivo Luz Mery Tristan' },
     { description: 'Descubre nuestros entrenamientos especializados. Ofrecemos más que clases: creamos caminos para ayudarte a moverte mejor y sentirte más fuerte.' },
   ];
 };

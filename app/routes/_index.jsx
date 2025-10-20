@@ -12,7 +12,39 @@ import { EventsSection } from '~/components/EventsSection';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{ title: 'Hydrogen | Home' }];
+  return [
+    { 
+      title: 'Centro Deportivo Luz Mery Tristan' 
+    },
+    { 
+      name: 'description', 
+      content: 'Uniendo la familia a través del deporte. Centro deportivo con más de 29 años de experiencia en Taekwondo, natación, patinaje, gimnasio y más actividades para toda la familia.' 
+    },
+    { 
+      property: 'og:title', 
+      content: 'Centro Deportivo Luz Mery Tristan' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Uniendo la familia a través del deporte. Centro deportivo con más de 29 años de experiencia en Taekwondo, natación, patinaje, gimnasio y más actividades para toda la familia.' 
+    },
+    { 
+      property: 'og:type', 
+      content: 'website' 
+    },
+    { 
+      name: 'twitter:card', 
+      content: 'summary_large_image' 
+    },
+    { 
+      name: 'twitter:title', 
+      content: 'Centro Deportivo Luz Mery Tristan' 
+    },
+    { 
+      name: 'twitter:description', 
+      content: 'Uniendo la familia a través del deporte. Centro deportivo con más de 29 años de experiencia en Taekwondo, natación, patinaje, gimnasio y más actividades para toda la familia.' 
+    }
+  ];
 };
 
 /**

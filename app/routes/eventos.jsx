@@ -1,6 +1,6 @@
 export const meta = () => {
   return [
-    { title: 'Eventos - Liga Metropolitana de Taekwondo' },
+    { title: 'Eventos - Centro Deportivo Luz Mery Tristan' },
     { description: 'Descubre nuestros próximos eventos, competencias y actividades especiales. Únete a nuestra comunidad de atletas y vive la emoción del Taekwondo.' },
   ];
 };

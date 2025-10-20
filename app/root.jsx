@@ -35,6 +35,26 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 };
 
 /**
+ * Default metadata for the application
+ * @type {MetaFunction}
+ */
+export const meta = () => {
+  return [
+    { 
+      title: 'Centro Deportivo Luz Mery Tristan' 
+    },
+    { 
+      name: 'description', 
+      content: 'Uniendo la familia a través del deporte. Centro deportivo con más de 29 años de experiencia en Taekwondo, natación, patinaje, gimnasio y más actividades para toda la familia.' 
+    },
+    { 
+      name: 'keywords', 
+      content: 'taekwondo, centro deportivo, natación, patinaje, gimnasio, karate, danza, padel, artes marciales, deportes familiares' 
+    }
+  ];
+};
+
+/**
  * The main and reset stylesheets are added in the Layout component
  * to prevent a bug in development HMR updates.
  *
@@ -148,7 +168,7 @@ export function Layout({children}) {
   const data = useRouteLoaderData('root');
 
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

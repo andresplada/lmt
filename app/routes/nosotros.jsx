@@ -1,6 +1,6 @@
 export const meta = () => {
   return [
-    {title: 'Nosotros - Liga Metropolitana de Taekwondo'},
+    {title: 'Nosotros - Centro Deportivo Luz Mery Tristan'},
     {description: 'Conoce nuestra historia, misión y valores. Más que una instalación deportiva, somos una comunidad vibrante impulsada por la pasión y el rendimiento.'},
   ];
 };
@@ -146,8 +146,8 @@ export default function Nosotros() {
             <div className="about-history-text">
               <h2 className="about-history-title">Nuestra Historia</h2>
               <p className="about-history-description">
-                Desde 1995, la Liga Metropolitana de Taekwondo ha sido un pilar en la formación de atletas 
-                y en la promoción de los valores del Taekwondo. Comenzamos con un pequeño grupo de estudiantes 
+                Desde 1995, el Centro Deportivo Luz Mery Tristan ha sido un pilar en la formación de atletas 
+                y en la promoción de los valores del deporte. Comenzamos con un pequeño grupo de estudiantes 
                 apasionados y hemos crecido hasta convertirnos en una de las escuelas más respetadas de la región.
               </p>
               <div className="about-history-stats">
@@ -168,7 +168,7 @@ export default function Nosotros() {
             <div className="about-history-image">
               <img 
                 src="https://luzmerytristan-photos.s3.us-east-1.amazonaws.com/img20250610_11210742.png" 
-                alt="Historia de la Liga Metropolitana de Taekwondo" 
+                alt="Historia del Centro Deportivo Luz Mery Tristan" 
                 className="about-history-img"
               />
             </div>

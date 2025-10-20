@@ -1,6 +1,6 @@
 export const meta = () => {
   return [
-    { title: 'Horarios - Liga Metropolitana de Taekwondo' },
+    { title: 'Horarios - Centro Deportivo Luz Mery Tristan' },
     { description: 'Consulta nuestros horarios de clases para todas las edades y niveles. Encuentra el horario perfecto que se adapte a tu rutina.' },
   ];
 };

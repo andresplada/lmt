@@ -1,6 +1,6 @@
 export const meta = () => {
   return [
-    { title: 'Precios - Liga Metropolitana de Taekwondo' },
+    { title: 'Precios - Centro Deportivo Luz Mery Tristan' },
     { description: 'Descubre nuestros planes y precios accesibles para todas las edades. Inversión en tu bienestar físico y mental.' },
   ];
 };
