@@ -13,17 +13,18 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
 
   return (
     <header className={`header ${isHomePage ? 'header-home' : 'header-other'}`}>
-      <NavLink prefetch="intent" to="/" style={(props) => activeLinkStyle(props, isHomePage)} end>
-        <img
+      <NavLink prefetch="intent" to="/" style={(props) => activeLinkStyle(props, isHomePage)} end className="header-logo-link">
+        {/* <img
           src="/logo-top.png"
           alt="Luz Mery Tristan Fitness Center"
           style={{
             position: 'relative',
-            height: '2.4rem',
+            height: '2rem',
             width: 'auto',
             // top: '0.5rem',
           }}
-        />
+        /> */}
+        <div className="header-logo-text">LUZ MERY TRISTÁN</div>
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -219,7 +220,6 @@ function ContactButton({ isHomePage = false }) {
             className="whatsapp-icon"
           />
         </div>
-        <span className="contact-button-text">Contáctanos</span>
       </div>
     </a>
   );

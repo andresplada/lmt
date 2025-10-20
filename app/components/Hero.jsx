@@ -79,7 +79,7 @@ export function Hero({
                 El evento mas terrorífico del año. Vivelo en familia
               </p>
             </h2>
-            <Link to="/nosotros" className="hero-card-button" style={{
+            <a href="https://tascas.luzmerytristan.com" className="hero-card-button" style={{
               backgroundColor: 'white',
               color: '#152a30',
               padding: '0.5rem 0.5rem',
@@ -92,9 +92,10 @@ export function Hero({
               width: '85%',
               letterSpacing: '-0.2px',
               textAlign: 'center',
+              display: 'block',
             }}>
               Compra boletas
-            </Link>
+            </a>
           </div>
           <img
             src="/tascas-1.png"
